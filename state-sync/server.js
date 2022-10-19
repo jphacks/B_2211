@@ -56,8 +56,19 @@ app.post('/state', (req, res) => {
   res.send('OK');
 })
 
+function convertLEDFormat(ledState) {
+  let outputFormat = [];
+  for (let i = 0; i < ledState.length; i++) {
+    let r = parseInt(parseInt(ledState[i].color.substring(1, 3), 16) * ledState[i].power / 100);
+    let g = parseInt(parseInt(ledState[i].color.substring(3, 5), 16) * ledState[i].power / 100);
+    let b = parseInt(parseInt(ledState[i].color.substring(5, 7), 16) * ledState[i].power / 100);
+    outputFormat.push([r, g, b]);
+  }
+  return outputFormat;
+}
+
 app.get('/state', (req, res) => {
-  res.send(LEDState);
+  res.send(convertLEDFormat(LEDState));
 })
 
 app.listen(PORT, HOST, () => {
