@@ -4,9 +4,8 @@ import { useRef, useState } from "react";
 import styles from "../styles/Home.module.css";
 import { axios } from "../util/axios";
 
-
 const Home: NextPage = () => {
-  const inputEl = useRef(null);
+  const inputEl = useRef<HTMLInputElement>(null);
   const [text, setText] = useState(<></>);
   const [grass, setGrass] = useState([]);
 
