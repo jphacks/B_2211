@@ -1,7 +1,43 @@
 version: '3.1'
 
 services:
-  state-sync:
-    build: ./state-sync
+  traefik:
+    image: "traefik:v2.5"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
     ports:
-      - "3000:8080"
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  state-sync:
+    container_name: jphacks_state-sync
+    build: ./state-sync
+    labels:
+      - "traefik.enable=true"
+      - --port=8080
+      - "traefik.http.routers.state-sync.rule=PathPrefix(`/state`)"
+      - "traefik.http.routers.state-sync.entrypoints=web"
+
+  kusa-api:
+    build: ./back
+    container_name: jphacks_kusa-api
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kusa-api.rule=PathPrefix(`/grass`)"
+      - "traefik.http.routers.kusa-api.entrypoints=web"
+
+  front:
+    build: ./front/qsahaiel
+    container_name: jphacks_front
+    labels:
+      - "traefik.enable=true"
+      - --port=3000
+      - "traefik.http.routers.front.entrypoints=web"
+      - "traefik.http.routers.front.rule=PathPrefix(`/`)"
