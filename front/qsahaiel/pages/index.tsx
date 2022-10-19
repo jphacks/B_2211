@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   const searchID = () => {
     if (!inputEl.current?.value) return;
     axios
-      .get("/grass/" + inputEl.current.value)
+      .get("https://kusa.home.k1h.dev/grass/" + inputEl.current.value)
       .then((res) => {
         if (res.status != 200) {
           setGrass([]);

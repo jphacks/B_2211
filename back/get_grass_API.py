@@ -8,6 +8,7 @@ origins = [
     "http://localhost:8000",
     "http://localhost",
     "http://localhost:3000",
+    "https://kusa.home.k1h.dev"
 ]
 
 app.add_middleware(
