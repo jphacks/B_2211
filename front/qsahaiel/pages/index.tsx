@@ -57,7 +57,7 @@ const Home: NextPage = () => {
     }
 
     //草の情報をAPI用に整形
-    const grassData = grass.slice(-7).map((date: [string, string]) => {
+    const grassData = grass.slice(-8).map((date: [string, string]) => {
       const pow = Number(date[1]);
       return { color: "#00FF00", power: pow };
     });
