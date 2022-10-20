@@ -5,20 +5,28 @@ import styles from "../styles/Home.module.css";
 import { axios } from "../util/axios";
 
 const Home: NextPage = () => {
-  const inputEl = useRef<HTMLInputElement>(null);
-  const [text, setText] = useState(<></>);
-  const [grass, setGrass] = useState([]);
-  const [sent, setSent] = useState(<></>);
+  const inputEl = useRef<HTMLInputElement>(null); //input
+  const [text, setText] = useState(<></>); //取得した草の状況もしくは取得できなかった旨のJSX
+  const [grass, setGrass] = useState([]); //草の状態を格納する
+  const [sent, setSent] = useState(<></>); //送信状況のJSX
 
   const searchID = () => {
+    //入力されたGitHubIDから草の情報を取得
+    const failed = () => {
+      //失敗時の処理
+      setGrass([]);
+      setSent(<></>);
+      setText(<>ユーザーが見つかりませんでした</>);
+    };
     if (!inputEl.current?.value) return;
     axios
       .get("/grass/" + inputEl.current.value)
       .then((res) => {
         if (res.status != 200) {
-          setGrass([]);
-          setText(<>ユーザーが見つかりませんでした</>);
+          //失敗(200以外、多分catchされるけど一応)
+          failed();
         } else {
+          //成功(草の情報の格納、情報の表示)
           setGrass(res.data);
           setText(
             <>
@@ -35,18 +43,27 @@ const Home: NextPage = () => {
         console.log(res.data);
       })
       .catch((res) => {
-        setGrass([]);
-        setSent(<></>);
-        setText(<>ユーザーが見つかりませんでした</>);
+        failed();
       });
   };
 
   const sendGrass = () => {
-    //ここに草の情報を送信する処理
+    //草の情報を送信する
+
+    //草の情報がないケース(ボタンが表示されないはずなので多分ない)
+    if(grass.length==0){
+      setSent(<>送信できません</>)
+      return 
+    }
+
+    //草の情報をAPI用に整形
     const grassData = grass.slice(-7).map((date: [string, string]) => {
       const pow = Number(date[1]);
       return { color: "#0000FF", power: pow };
     });
+
+
+    //送信
     axios
       .post("https://kusa.home.k1h.dev/state", grassData)
       .then((res) => {
@@ -68,7 +85,7 @@ const Home: NextPage = () => {
       <p>{text}</p>
       <>
         {grass.length != 0 ? (
-          <button onClick={sendGrass}>ここを押したら草の情報を送信する</button>
+          <button onClick={sendGrass}>草の情報を送信</button>
         ) : (
           <></>
         )}
