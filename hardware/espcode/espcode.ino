@@ -18,6 +18,7 @@ int LED4_Pins[] = { A13, A4, A5 };
 
 void setup() {
   Wire.begin();
+  Serial.begin(115200);
 
   // 使用するタイマーのチャネルと周波数を設定
   for (int i = 0; i < 12; i++)
@@ -45,7 +46,7 @@ void setup() {
 }
 
 int* LEDStatusFormatter(String input, int output[]) {
-  StaticJsonDocument<256> doc;
+  StaticJsonDocument<512> doc;
   DeserializationError error = deserializeJson(doc, input);
   if (error) {
     Serial.print(F("deserializeJson() failed: "));
@@ -83,7 +84,7 @@ void loop() {
   String LedData = getLedState();
   Serial.print("LED Data: ");
   Serial.println(LedData);
-  int ledState[24];
+  int ledState[24] = {0};
   LEDStatusFormatter(LedData,ledState);
   for(int i=0;i<24;i++){
     Serial.print(ledState[i]);
