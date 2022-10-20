@@ -91,7 +91,7 @@ void loop() {
   }
   Serial.println("");
 
-  for(int i=0;i<12;i++)ledWrite(i, ledState[i]);
+  for(int i=0;i<12;i++)ledcWrite(i, ledState[i]);
 
   // for (int i = 0; i < 12; i++) ledcWrite(i, brightness);
   // // 明るさが0を下回る、若しくは255を超えた時に反転
