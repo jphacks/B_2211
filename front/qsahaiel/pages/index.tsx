@@ -8,6 +8,7 @@ const Home: NextPage = () => {
   const inputEl = useRef<HTMLInputElement>(null);
   const [text, setText] = useState(<></>);
   const [grass, setGrass] = useState([]);
+  const [sent, setSent] = useState(<></>);
 
   const searchID = () => {
     if (!inputEl.current?.value) return;
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
           setGrass(res.data);
           setText(
             <>
-              {res.data.slice(-10).map((date: [string, string]) => {
+              {res.data.slice(-7).map((date: [string, string]) => {
                 return (
                   <>
                     <p key={date[0]}>{date[0] + " : " + date[1]}</p>
@@ -35,12 +36,25 @@ const Home: NextPage = () => {
       })
       .catch((res) => {
         setGrass([]);
+        setSent(<></>);
         setText(<>ユーザーが見つかりませんでした</>);
       });
   };
 
   const sendGrass = () => {
     //ここに草の情報を送信する処理
+    const grassData = grass.slice(-7).map((date: [string, string]) => {
+      const pow = Number(date[1]);
+      return { color: "#0000FF", power: pow };
+    });
+    axios
+      .post("https://kusa.home.k1h.dev/state", grassData)
+      .then((res) => {
+        setSent(<>送信完了しました</>);
+      })
+      .catch((res) => {
+        setSent(<>送信中にエラーが発生しました</>);
+      });
   };
 
   return (
@@ -59,6 +73,7 @@ const Home: NextPage = () => {
           <></>
         )}
       </>
+      <>{sent}</>
     </div>
   );
 };
