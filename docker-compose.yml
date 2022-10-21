@@ -18,27 +18,30 @@ services:
 
   state-sync:
     build: ./state-sync
-    image: "ghcr.io/csenet/qusahaiel/state-sync:latest"
+    # image: "ghcr.io/csenet/qusahaiel/state-sync:latest"
     container_name: jphacks_state-sync
     labels:
       - "traefik.enable=true"
+      - --port=8080
       - "traefik.http.routers.state-sync.rule=PathPrefix(`/state`)"
       - "traefik.http.routers.state-sync.entrypoints=web"
 
   kusa-api:
     build: ./back
-    image: "ghcr.io/csenet/qusahaiel/kusa-api:latest"
+    # image: "ghcr.io/csenet/qusahaiel/kusa-api:latest"
     container_name: jphacks_kusa-api
     labels:
+      - --port=8000
       - "traefik.enable=true"
       - "traefik.http.routers.kusa-api.rule=PathPrefix(`/grass`)"
       - "traefik.http.routers.kusa-api.entrypoints=web"
 
   front:
     build: ./front
-    image: "ghcr.io/csenet/qusahaiel/front:latest"
+    # image: "ghcr.io/csenet/qusahaiel/front:latest"
     container_name: jphacks_front
     labels:
       - "traefik.enable=true"
+      - --port=3000
       - "traefik.http.routers.front.entrypoints=web"
       - "traefik.http.routers.front.rule=PathPrefix(`/`)"

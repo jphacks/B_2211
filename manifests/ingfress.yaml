@@ -5,6 +5,7 @@ metadata:
   namespace: qusahaiel
 
 spec:
+  ingressClass: "traefik-internal"
   rules:
   - host: localhost
     http:
