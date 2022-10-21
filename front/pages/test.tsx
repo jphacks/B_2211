@@ -85,19 +85,19 @@ interface payload {
 
     console.log(colors);
     
-    // axios
-    //   .post("https://kusa.home.k1h.dev/state", colors)
-    //   .then((res) => {
-    //     if (res.status != 200) {
-    //       //失敗(200以外、多分catchされるけど一応)
-    //       setSent(<></>);
-    //     } else {
-    //       //成功
-    //       setSent(<p>送信しました</p>);
-    //     }
-    //     console.log(res.data);
-    //   }
-    //   )
+    axios
+      .post("https://kusa.home.k1h.dev/state", colors)
+      .then((res) => {
+        if (res.status != 200) {
+          //失敗(200以外、多分catchされるけど一応)
+          setSent(<></>);
+        } else {
+          //成功
+          setSent(<p>送信しました</p>);
+        }
+        console.log(res.data);
+      }
+      )
   }
 
   const sendGrass = () => {
