@@ -31,6 +31,7 @@ services:
     image: "ghcr.io/csenet/qusahaiel/kusa-api:latest"
     container_name: jphacks_kusa-api
     labels:
+      - --port=8000
       - "traefik.enable=true"
       - "traefik.http.routers.kusa-api.rule=PathPrefix(`/grass`)"
       - "traefik.http.routers.kusa-api.entrypoints=web"
