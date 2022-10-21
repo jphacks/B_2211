@@ -34,7 +34,7 @@ const Home: NextPage = () => {
               {res.data.slice(-8).map((date: [string, string]) => {
                 setMaxGrass(
                   Math.max(
-                    res.data.map((date: [string, string]) => {
+                    ...res.data.map((date: [string, string]) => {
                       return Number(date[1]);
                     })
                   )
