@@ -134,7 +134,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="h-screen flex flex-col align-middle">
-        <h1 className=" mt-10 text-7xl text-center font-mono"><Image src={logo} width={100} height={60} />Qsahaiel</h1>
+        <h1 className="my-10 mt-10 text-7xl text-center font-mono"><Image src={logo} width={100} height={60} />Qsahaiel</h1>
         <div className="justify-center  flex flex-row">
           <input
             type="text"
