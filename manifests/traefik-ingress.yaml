@@ -1,17 +1,32 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ingress
-  annotations:
-    kubernetes.io/ingress.class: traefik
+  name: foo
+  namespace: production
+
 spec:
   rules:
-    - http:
+    - host: kusa.home.k1h.dev
+      http:
         paths:
-          - backend:
+          - path: /
+            pathType: Exact
+            backend:
               service:
-                name: front
-                port: 
-                  number: 3000
-            path: /
-            pathType: Prefix
+                name:  front
+                port:
+                  number: 80
+          - path: /state
+            pathType: Exact
+            backend:
+              service:
+                name:  state-sync
+                port:
+                  number: 80
+          - path: /grass
+            pathType: Exact
+            backend:
+              service:
+                name:  kusa-api
+                port:
+                  number: 80
