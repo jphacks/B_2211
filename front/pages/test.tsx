@@ -77,18 +77,39 @@ const Home: NextPage = () => {
     return [h, s, v];
   };
 
+  function hsvToRgb(h:number, s:number, v:number) {
+    let r=0.0, g=0.0, b=0.0;
+  
+    const i = Math.floor(h * 6);
+    const f = h * 6 - i;
+    const p = v * (1 - s);
+    const q = v * (1 - f * s);
+    const t = v * (1 - (1 - f) * s);
+  
+    switch (i % 6) {
+      case 0: r = v, g = t, b = p; break;
+      case 1: r = q, g = v, b = p; break;
+      case 2: r = p, g = v, b = t; break;
+      case 3: r = p, g = q, b = v; break;
+      case 4: r = t, g = p, b = v; break;
+      case 5: r = v, g = p, b = q; break;
+    }
+    return [r,g,b].map(e=>Math.round(e*255));
+  }
+
+
   const startParty = () => {
     //草の色を変える
     // ランダムな色を生成してAPIに送る
-    const randomColor = () => {
-      const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-      return color;
-    }
-    const color = randomColor();
-    const hsv = rgbToHsv(parseInt(color.slice(1, 3), 16), parseInt(color.slice(3, 5), 16), parseInt(color.slice(5, 7), 16));
+    const rgb = hsvToRgb(Math.random(), 0.5, 0.5);
+    // rgbを#ffffffみたいな形に変換する
+    console.log(rgb);
+    const color2 = "#" + rgb[0].toString(16) + rgb[1].toString(16) + rgb[2].toString(16);
+    // console.log(rgb);
+    console.log(color2);
     axios
-      .post("https://kusa.home.k1h.dev/grass/", {
-        color: hsv,
+      .post("https://kusa.home.k1h.dev/state", {
+        color: color2,
         power: 100
       })
       .then((res) => {
