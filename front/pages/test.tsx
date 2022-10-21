@@ -9,43 +9,6 @@ const Home: NextPage = () => {
   const [grass, setGrass] = useState([]); //草の状態を格納する
   const [sent, setSent] = useState(<></>); //送信状況のJSX
 
-  const searchID = () => {
-    //入力されたGitHubIDから草の情報を取得
-    const failed = () => {
-      //失敗時の処理
-      setGrass([]);
-      setSent(<></>);
-      setText(<>ユーザーが見つかりませんでした</>);
-    };
-    if (!inputEl.current?.value) return;
-    axios
-      .get("https://kusa.home.k1h.dev/grass/" + inputEl.current.value)
-      .then((res) => {
-        if (res.status != 200) {
-          //失敗(200以外、多分catchされるけど一応)
-          failed();
-        } else {
-          //成功(草の情報の格納、情報の表示)
-          setGrass(res.data);
-          setText(
-            <>
-              {res.data.slice(-7).map((date: [string, string]) => {
-                return (
-                  <>
-                    <p key={date[0]}>{date[0] + " : " + date[1]}</p>
-                  </>
-                );
-              })}
-            </>
-          );
-        }
-        console.log(res.data);
-      })
-      .catch((res) => {
-        failed();
-      });
-  };
-
   const rgbToHsv = (r: number, g: number, b: number) => {
     //RGBからHSVに変換
     r /= 255;
@@ -113,10 +76,9 @@ interface payload {
   const startParty = () => {
     //草の色を変える
 
-    const colors = new Array<payload>(8).fill({
-        color: getRandomColor(),
-        power:100}
-        );
+    const colors = new Array<payload>(8).map((e) => {
+      return { color: getRandomColor(), power: 100 };
+    })
     
     axios
       .post("https://kusa.home.k1h.dev/state", colors)
