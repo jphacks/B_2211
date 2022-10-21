@@ -32,7 +32,7 @@ spec:
         io.kompose.service: front
     spec:
       containers:
-        - image: ghcr.io/jphacks/b_2211/front:latest
+        - image: ghcr.io/csenet/qusahaiel/front:latest
           name: jphacks-front
           resources: {}
       restartPolicy: Always

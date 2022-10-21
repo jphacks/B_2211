@@ -32,7 +32,7 @@ spec:
         io.kompose.service: state-sync
     spec:
       containers:
-        - image: ghcr.io/jphacks/b_2211/state-sync:latest
+        - image: ghcr.io/csenet/qusahaiel/state-sync:latest
           name: jphacks-state-sync
           resources: {}
       restartPolicy: Always

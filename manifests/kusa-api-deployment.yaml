@@ -30,7 +30,7 @@ spec:
         io.kompose.service: kusa-api
     spec:
       containers:
-        - image: ghcr.io/jphacks/b_2211/kusa-api:latest
+        - image: ghcr.io/csenet/qusahaiel/kusa-api:latest
           name: jphacks-kusa-api
           resources: {}
       restartPolicy: Always
