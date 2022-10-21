@@ -14,3 +14,17 @@ spec:
             name: front
             port:
               number: 80
+      - path: /grass
+        pathType: Prefix
+        backend:
+          service:
+            name: kusa-api
+            port:
+              number: 80
+      - path: /state
+        pathType: Prefix
+        backend:
+          service:
+            name: state-sync
+            port:
+              number: 80
