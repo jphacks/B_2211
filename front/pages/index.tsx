@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRef, useState } from "react";
 import { axios } from "../util/axios";
+import Image from 'next/image'
+import logo from '../public/logo.png'
 
 const Home: NextPage = () => {
   const inputEl = useRef<HTMLInputElement>(null); //input
@@ -99,8 +101,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="h-screen flex flex-col align-middle">
-        <h1 className=" my-10 text-7xl text-center font-mono">Qsahaiel</h1>
-
+        <h1 className=" mt-10 text-7xl text-center font-mono"><Image src={logo} width={100} height={60} />Qsahaiel</h1>
         <div className="justify-center  flex flex-row">
           <input
             type="text"
