@@ -152,7 +152,7 @@ interface payload {
           "color": "#FF0000",
           "power": 44
       }
-  ]
+  ];
 
   //送信
   axios
@@ -198,7 +198,7 @@ interface payload {
          </div>
         <button onClick={sendGrass}>送信</button>
         <button onClick={()=>{setInterval(startParty, 1000)}}>パーティモード</button>
-        <button onClick={()=>{sendWalk}>歩数テスト</button>
+        <button onClick={sendWalk}>歩数テスト</button>
         <p className="text-center my-3">{text}</p>
         <>{sent}</>
       </div>
