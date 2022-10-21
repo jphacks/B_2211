@@ -27,21 +27,32 @@
 ## 開発技術
 ### 活用した技術
 #### API・データ
-* 
-* 
+* Github (Contributions)
 
 #### フレームワーク・ライブラリ・モジュール
-* 
-* 
+##### フロントエンド
+* Next.js
+* tailwind
+##### バックエンド
+* FastAPI
+* Express
+##### 組み込み
+* Arduino
+* ArduinoJSON
+##### インフラ
+* traefik
+* ArgoCD
+* Docker
+* k8s
 
 #### デバイス
-* 
-* 
+* ESP32-DevKitC
+* Arduino MEGA 2560 R3
 
 ### 独自技術
 #### ハッカソンで開発した独自機能・技術
-* 独自で開発したものの内容をこちらに記載してください
-* 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
+* I2Cによる2デバイス間の連携(https://github.com/jphacks/B_2211/blob/develop/hardware/espcode/espcode.ino)
+* traefikによるリバースプロキシ(https://github.com/jphacks/B_2211/blob/develop/docker-compose.yml)
 
 #### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
 * 
