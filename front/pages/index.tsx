@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     };
     if (!inputEl.current?.value) return;
     axios
-      .get("/grass/" + inputEl.current.value)
+      .get("https://kusa.home.k1h.dev/grass/" + inputEl.current.value)
       .then((res) => {
         if (res.status != 200) {
           //失敗(200以外、多分catchされるけど一応)
@@ -56,9 +56,9 @@ const Home: NextPage = () => {
     }
 
     //草の情報をAPI用に整形
-    const grassData = grass.slice(-7).map((date: [string, string]) => {
+    const grassData = grass.slice(-8).map((date: [string, string]) => {
       const pow = Number(date[1]);
-      return { color: "#0000FF", power: pow };
+      return { color: "#00FF00", power: pow };
     });
 
     //送信

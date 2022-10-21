@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../docker-compose-kube.yml convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kusa-api
+  name: kusa-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: kusa-api
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose -f ../docker-compose-kube.yml convert
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kusa-api
+    spec:
+      containers:
+        - image: ghcr.io/csenet/qusahaiel/kusa-api:latest
+          name: jphacks-kusa-api
+          ports:
+            - containerPort: 8000
+          resources: {}
+      restartPolicy: Always
+status: {}
