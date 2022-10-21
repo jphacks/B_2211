@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: foo
-  namespace: production
+  name: ingress
+  namespace: qusahaiel
 
 spec:
   rules:
