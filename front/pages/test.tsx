@@ -45,6 +45,65 @@ const Home: NextPage = () => {
         failed();
       });
   };
+
+  const rgbToHsv = (r: number, g: number, b: number) => {
+    //RGBからHSVに変換
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0;
+    let s = 0;
+    const v = max;
+    const d = max - min;
+    s = max === 0 ? 0 : d / max;
+    if (max === min) {
+      h = 0;
+    } else {
+      switch (max) {
+        case r:
+          h = (g - b) / d + (g < b ? 6 : 0);
+          break;
+        case g:
+          h = (b - r) / d + 2;
+          break;
+        case b:
+          h = (r - g) / d + 4;
+          break;
+      }
+      h /= 6;
+    }
+    return [h, s, v];
+  };
+
+  const startParty = () => {
+    //草の色を変える
+    // ランダムな色を生成してAPIに送る
+    const randomColor = () => {
+      const color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+      return color;
+    }
+    const color = randomColor();
+    const hsv = rgbToHsv(parseInt(color.slice(1, 3), 16), parseInt(color.slice(3, 5), 16), parseInt(color.slice(5, 7), 16));
+    axios
+      .post("https://kusa.home.k1h.dev/grass/", {
+        color: hsv,
+        power: 100
+      })
+      .then((res) => {
+        if (res.status != 200) {
+          //失敗(200以外、多分catchされるけど一応)
+          setSent(<></>);
+        } else {
+          //成功
+          setSent(<p>送信しました</p>);
+        }
+        console.log(res.data);
+      }
+      )
+  }
+
   const sendGrass = () => {
     //草の情報を送信する
 
@@ -107,6 +166,7 @@ const Home: NextPage = () => {
           }
          </div>
         <button onClick={sendGrass}>送信</button>
+        <button onClick={()=>{setInterval(startParty, 1000)}}>パーティモード</button>
         <p className="text-center my-3">{text}</p>
         <>{sent}</>
       </div>
