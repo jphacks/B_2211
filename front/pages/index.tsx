@@ -8,6 +8,7 @@ const Home: NextPage = () => {
   const [text, setText] = useState(<></>); //取得した草の状況もしくは取得できなかった旨のJSX
   const [grass, setGrass] = useState([]); //草の状態を格納する
   const [sent, setSent] = useState(<></>); //送信状況のJSX
+  const [maxGrass, setMaxGrass] = useState(1); //過去1年の草最大値
 
   const searchID = () => {
     //入力されたGitHubIDから草の情報を取得
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
       setGrass([]);
       setSent(<></>);
       setText(<>ユーザーが見つかりませんでした</>);
+      setMaxGrass(1);
     };
     if (!inputEl.current?.value) return;
     axios
@@ -29,10 +31,24 @@ const Home: NextPage = () => {
           setGrass(res.data);
           setText(
             <>
-              {res.data.slice(-7).map((date: [string, string]) => {
+              {res.data.slice(-8).map((date: [string, string]) => {
+                setMaxGrass(
+                  Math.max(
+                    res.data.map((date: [string, string]) => {
+                      return Number(date[1]);
+                    })
+                  )
+                );
                 return (
                   <>
-                    <p key={date[0]}>{date[0] + " : " + date[1]}</p>
+                    <p key={date[0]}>
+                      {date[0] +
+                        " : " +
+                        date[1] +
+                        "(" +
+                        Math.floor((Number(date[1]) / maxGrass) * 100) +
+                        "%)"}
+                    </p>
                   </>
                 );
               })}
@@ -58,7 +74,7 @@ const Home: NextPage = () => {
     //草の情報をAPI用に整形
     const grassData = grass.slice(-8).map((date: [string, string]) => {
       const pow = Number(date[1]);
-      return { color: "#00FF00", power: pow };
+      return { color: "#00FF00", power: Math.floor((pow / maxGrass) * 100) };
     });
 
     //送信
