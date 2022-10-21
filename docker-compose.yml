@@ -18,7 +18,7 @@ services:
 
   state-sync:
     container_name: jphacks_state-sync
-    build: ./state-sync
+    image: ghcr.io/jphacks/b_2211/state-sync:latest
     labels:
       - "traefik.enable=true"
       - --port=8080
@@ -26,7 +26,7 @@ services:
       - "traefik.http.routers.state-sync.entrypoints=web"
 
   kusa-api:
-    build: ./back
+    image: ghcr.io/jphacks/b_2211/kusa-api:latest
     container_name: jphacks_kusa-api
     labels:
       - "traefik.enable=true"
@@ -34,7 +34,7 @@ services:
       - "traefik.http.routers.kusa-api.entrypoints=web"
 
   front:
-    build: ./front/qsahaiel
+    image: ghcr.io/jphacks/b_2211/front:latest
     container_name: jphacks_front
     labels:
       - "traefik.enable=true"

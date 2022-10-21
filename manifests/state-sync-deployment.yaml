@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    --port: "8080"
+    kompose.cmd: kompose -f ../docker-compose.yml convert
+    kompose.version: 1.26.1 (HEAD)
+    traefik.enable: "true"
+    traefik.http.routers.state-sync.entrypoints: web
+    traefik.http.routers.state-sync.rule: PathPrefix(`/state`)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: state-sync
+  name: state-sync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: state-sync
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        --port: "8080"
+        kompose.cmd: kompose -f ../docker-compose.yml convert
+        kompose.version: 1.26.1 (HEAD)
+        traefik.enable: "true"
+        traefik.http.routers.state-sync.entrypoints: web
+        traefik.http.routers.state-sync.rule: PathPrefix(`/state`)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: state-sync
+    spec:
+      containers:
+        - image: ghcr.io/jphacks/b_2211/state-sync:latest
+          name: jphacks-state-sync
+          resources: {}
+      restartPolicy: Always
+status: {}

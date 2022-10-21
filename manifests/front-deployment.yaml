@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    --port: "3000"
+    kompose.cmd: kompose -f ../docker-compose.yml convert
+    kompose.version: 1.26.1 (HEAD)
+    traefik.enable: "true"
+    traefik.http.routers.front.entrypoints: web
+    traefik.http.routers.front.rule: PathPrefix(`/`)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: front
+  name: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: front
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        --port: "3000"
+        kompose.cmd: kompose -f ../docker-compose.yml convert
+        kompose.version: 1.26.1 (HEAD)
+        traefik.enable: "true"
+        traefik.http.routers.front.entrypoints: web
+        traefik.http.routers.front.rule: PathPrefix(`/`)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: front
+    spec:
+      containers:
+        - image: ghcr.io/jphacks/b_2211/front:latest
+          name: jphacks-front
+          resources: {}
+      restartPolicy: Always
+status: {}
