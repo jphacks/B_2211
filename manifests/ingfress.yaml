@@ -2,10 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
-  namespace: qusahaiel
+  namespace: app
 
 spec:
-  ingressClass: "traefik-internal"
   rules:
   - host: localhost
     http:
