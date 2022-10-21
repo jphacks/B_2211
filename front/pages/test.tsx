@@ -97,21 +97,29 @@ const Home: NextPage = () => {
     return [r,g,b].map(e=>Math.round(e*255));
   }
 
-
-  const startParty = () => {
-    //草の色を変える
-    // ランダムな色を生成してAPIに送る
+  const getRandomColor = () => {
     const rgb = hsvToRgb(Math.random(), 0.5, 0.5);
     // rgbを#ffffffみたいな形に変換する
     console.log(rgb);
     const color2 = "#" + rgb[0].toString(16) + rgb[1].toString(16) + rgb[2].toString(16);
-    // console.log(rgb);
-    console.log(color2);
+    return color2;
+  };
+
+interface payload {
+  color: string;
+  power: number;
+}
+
+  const startParty = () => {
+    //草の色を変える
+
+    const colors = new Array<payload>(8).fill({
+        color: getRandomColor(),
+        power:100}
+        );
+    
     axios
-      .post("https://kusa.home.k1h.dev/state", {
-        color: color2,
-        power: 100
-      })
+      .post("https://kusa.home.k1h.dev/state", colors)
       .then((res) => {
         if (res.status != 200) {
           //失敗(200以外、多分catchされるけど一応)
