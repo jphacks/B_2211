@@ -2,11 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose -f ../docker-compose.yml convert
+    kompose.cmd: kompose -f ../docker-compose-kube.yml convert
     kompose.version: 1.26.1 (HEAD)
-    traefik.enable: "true"
-    traefik.http.routers.front.entrypoints: web
-    traefik.http.routers.front.rule: PathPrefix(`/`)
   creationTimestamp: null
   labels:
     io.kompose.service: front
@@ -20,11 +17,8 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose -f ../docker-compose.yml convert
+        kompose.cmd: kompose -f ../docker-compose-kube.yml convert
         kompose.version: 1.26.1 (HEAD)
-        traefik.enable: "true"
-        traefik.http.routers.front.entrypoints: web
-        traefik.http.routers.front.rule: PathPrefix(`/`)
       creationTimestamp: null
       labels:
         io.kompose.service: front
@@ -32,6 +26,8 @@ spec:
       containers:
         - image: ghcr.io/csenet/qusahaiel/front:latest
           name: jphacks-front
+          ports:
+            - containerPort: 3000
           resources: {}
       restartPolicy: Always
 status: {}
