@@ -63,7 +63,6 @@ const Home: NextPage = () => {
   const getRandomColor = () => {
     const rgb = hsvToRgb(Math.random(), 0.5, 0.5);
     // rgbを#ffffffみたいな形に変換する
-    console.log(rgb);
     const color2 = "#" + rgb[0].toString(16) + rgb[1].toString(16) + rgb[2].toString(16);
     return color2;
   };
@@ -75,24 +74,30 @@ interface payload {
 
   const startParty = () => {
     //草の色を変える
-
-    const colors = new Array<payload>(8).map((e) => {
-      return { color: getRandomColor(), power: 100 };
-    })
     
-    axios
-      .post("https://kusa.home.k1h.dev/state", colors)
-      .then((res) => {
-        if (res.status != 200) {
-          //失敗(200以外、多分catchされるけど一応)
-          setSent(<></>);
-        } else {
-          //成功
-          setSent(<p>送信しました</p>);
-        }
-        console.log(res.data);
+    const colors = new Array<payload>(8);
+    for(let i=0;i<8;i++){
+      colors[i] = {
+        color: getRandomColor(),
+        power: 100
       }
-      )
+    }
+
+    console.log(colors);
+    
+    // axios
+    //   .post("https://kusa.home.k1h.dev/state", colors)
+    //   .then((res) => {
+    //     if (res.status != 200) {
+    //       //失敗(200以外、多分catchされるけど一応)
+    //       setSent(<></>);
+    //     } else {
+    //       //成功
+    //       setSent(<p>送信しました</p>);
+    //     }
+    //     console.log(res.data);
+    //   }
+    //   )
   }
 
   const sendGrass = () => {
