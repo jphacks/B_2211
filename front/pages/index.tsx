@@ -29,16 +29,16 @@ const Home: NextPage = () => {
         } else {
           //成功(草の情報の格納、情報の表示)
           setGrass(res.data);
+          const mxgrs = Math.max(
+            ...res.data.map((date: [string, string]) => {
+              return Number(date[1]);
+            })
+          );
+          setMaxGrass(mxgrs);
+
           setText(
             <>
               {res.data.slice(-8).map((date: [string, string]) => {
-                setMaxGrass(
-                  Math.max(
-                    res.data.map((date: [string, string]) => {
-                      return Number(date[1]);
-                    })
-                  )
-                );
                 return (
                   <>
                     <p key={date[0]}>
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
                         " : " +
                         date[1] +
                         "(" +
-                        Math.floor((Number(date[1]) / maxGrass) * 100) +
+                        Math.floor((Number(date[1]) / mxgrs) * 100) +
                         "%)"}
                     </p>
                   </>
