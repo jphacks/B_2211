@@ -197,7 +197,7 @@ interface payload {
           }
          </div>
         <button onClick={sendGrass}>送信</button>
-        <button onClick={()=>{setInterval(startParty, 1000)}}>パーティモード</button>
+        <button onClick={()=>{const interval = setInterval(startParty, 1000);setTimeout(()=>{clearInterval(interval)},10000);}}>パーティモード</button>
         <button onClick={sendWalk}>歩数テスト</button>
         <p className="text-center my-3">{text}</p>
         <>{sent}</>
