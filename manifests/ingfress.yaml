@@ -6,7 +6,7 @@ metadata:
 
 spec:
   rules:
-  - host: kusa.home.k1h.dev
+  - host: localhost
     http:
       paths:
       - path: /
