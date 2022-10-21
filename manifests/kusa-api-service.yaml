@@ -9,6 +9,7 @@ metadata:
     io.kompose.service: kusa-api
   name: kusa-api
 spec:
+  type: "LoadBalancer"
   ports:
     - name: "8000"
       port: 8000
