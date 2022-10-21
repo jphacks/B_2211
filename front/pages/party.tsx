@@ -118,6 +118,53 @@ interface payload {
       });
   };
 
+  const sendWalk = () => {
+    const data = [
+      {
+          "color": "#FF0000",
+          "power": 36
+      },
+      {
+          "color": "#FF0000",
+          "power": 18
+      },
+      {
+          "color": "#FF0000",
+          "power": 35
+      },
+      {
+          "color": "#FF0000",
+          "power": 34
+      },
+      {
+          "color": "#FF0000",
+          "power": 42
+      },
+      {
+          "color": "#FF0000",
+          "power": 5
+      },
+      {
+          "color": "#FF0000",
+          "power": 35
+      },
+      {
+          "color": "#FF0000",
+          "power": 44
+      }
+  ]
+
+  //送信
+  axios
+  .post("https://kusa.home.k1h.dev/state", data)
+  .then((res) => {
+    setSent(<>送信完了しました</>);
+  })
+  .catch((res) => {
+    setSent(<>送信中にエラーが発生しました</>);
+  });
+  }
+
   return (
     <div>
       <Head>
@@ -151,6 +198,7 @@ interface payload {
          </div>
         <button onClick={sendGrass}>送信</button>
         <button onClick={()=>{setInterval(startParty, 1000)}}>パーティモード</button>
+        <button onClick={()=>{sendWalk}>歩数テスト</button>
         <p className="text-center my-3">{text}</p>
         <>{sent}</>
       </div>
