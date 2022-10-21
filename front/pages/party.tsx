@@ -102,18 +102,6 @@ interface payload {
 
   const sendGrass = () => {
     //草の情報を送信する
-
-    //草の情報がないケース(ボタンが表示されないはずなので多分ない)
-    // if (grass.length == 0) {
-    //   setSent(<>送信できません</>);
-    //   return;
-    // }
-
-    //草の情報をAPI用に整形
-    // const grassData = grass.slice(-8).map((date: [string, string]) => {
-    //   const pow = Number(date[1]);
-    //   return { color: "#00FF00", power: pow };
-    // });
     let grassData = new Array<{ color: string; power: number }>(8);
     for (let i = 0; i < 8; i++) {
       grassData[i] = { color: colors[i], power: 100 };
