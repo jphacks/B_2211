@@ -1,6 +1,6 @@
 # Qsahaiel(クサハエル)
 
-[![IMAGE ALT TEXT HERE](https://jphacks.com/wp-content/uploads/2022/08/JPHACKS2022_ogp.jpg)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
+[![IMAGE ALT TEXT HERE](https://user-images.githubusercontent.com/63544513/197244477-cd92702d-1dc1-4da6-ade7-4f1d58f7f0c1.png)](https://www.youtube.com/watch?v=LUPQFB4QyVo)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
@@ -17,8 +17,8 @@
   日常的にGitHubのContributionの状況や、日課の達成状況が目に入る場所にあることで、日課の達成を促すとともにモチベーション向上に繋げる
 
 ### 今後の展望
-* 
-* 
+* GitHubのContributionの記録を、毎日自動で更新できるようにする。
+* Google Fitなどの歩数を手動で入力することなく、自動でQsahaielが受け取り表示できるようにする。
 
 ### 注力したこと（こだわり等）
 * 
@@ -42,7 +42,3 @@
 #### ハッカソンで開発した独自機能・技術
 * 独自で開発したものの内容をこちらに記載してください
 * 特に力を入れた部分をファイルリンク、またはcommit_idを記載してください。
-
-#### 製品に取り入れた研究内容（データ・ソフトウェアなど）（※アカデミック部門の場合のみ提出必須）
-* 
-* 
