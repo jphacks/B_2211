@@ -22,7 +22,6 @@ services:
     container_name: jphacks_state-sync
     labels:
       - "traefik.enable=true"
-      - --port=8080
       - "traefik.http.routers.state-sync.rule=PathPrefix(`/state`)"
       - "traefik.http.routers.state-sync.entrypoints=web"
 
@@ -41,6 +40,5 @@ services:
     container_name: jphacks_front
     labels:
       - "traefik.enable=true"
-      - --port=3000
       - "traefik.http.routers.front.entrypoints=web"
       - "traefik.http.routers.front.rule=PathPrefix(`/`)"
