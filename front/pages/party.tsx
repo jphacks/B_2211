@@ -118,13 +118,13 @@ interface payload {
       });
   };
   const alert = async () => {
-    for(let i=0;i<10;i++){
+    for(let i=0;i<5;i++){
       const black = new Array<payload>(8).fill({color: "#000000", power: 100});
       axios.post("https://kusa.home.k1h.dev/state", black);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       const red = new Array<payload>(8).fill({color: "#ff0000", power: 100});
       axios.post("https://kusa.home.k1h.dev/state", red);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1500));
     }
   }
 
