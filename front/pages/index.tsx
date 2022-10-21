@@ -29,11 +29,15 @@ const Home: NextPage = () => {
         } else {
           //成功(草の情報の格納、情報の表示)
           setGrass(res.data);
-          const mxgrs = Math.max(
-            ...res.data.map((date: [string, string]) => {
-              return Number(date[1]);
-            })
-          );
+          const grasses = res.data.map((date: [string, string]) => {
+            return Number(date[1]);
+          });
+          const sum = (nums: number[]) => {
+            var total = 0;
+            for (var i = 0, len = nums.length; i < len; i++) total += nums[i];
+            return total;
+          };
+          const mxgrs = sum(grasses) == 0 ? 1 : Math.max(...grasses);
           setMaxGrass(mxgrs);
 
           setText(
