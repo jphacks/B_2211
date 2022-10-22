@@ -23,24 +23,23 @@ Qsahaielは色の光り方のモードがいくつかあり、気分転換がで
 ##### パーティーモード
 さまざまな色に光ります。
 見ているだけで楽しい気分になります。
+
 ![party_qsahaiel](https://user-images.githubusercontent.com/63544513/197319746-9680494c-219f-4ad6-88ba-21a13afeac20.gif)
-
-
 
 ##### アラートモード
 Qsahaielが赤色に点滅します。
 自身に緊迫感を与えることができます。
+
 ![arart_qsahaiel](https://user-images.githubusercontent.com/63544513/197319764-b9e00404-99c1-4799-a582-161af93a0397.gif)
-
-
 
 ##### サハクィエルモード
 Qsahaielの名前の元になったサハクィエルの配色に光ります。
-![IMG_6488]()
+
 <img src="https://user-images.githubusercontent.com/63544513/197319786-9384c9e1-894a-4541-975f-cdcde2eabeaa.jpg" width="320px">
 
 ##### カスタマイズモード
 色を元々あるパターンだけでなく、自分の好きなように変えることができます。
+
 <img src="https://user-images.githubusercontent.com/63544513/197318912-473057b7-efa8-4ab6-81d4-302f94afa9cd.jpg" width="320px">
 
 ### 解決出来ること
