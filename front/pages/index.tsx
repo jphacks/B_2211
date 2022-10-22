@@ -193,7 +193,9 @@ const Home: NextPage = () => {
               alt="qsahaiel logo"
             />
           </div>
-          <h1 className="my-10 text-7xl text-center font-mono">Qsahaiel</h1>
+          <h1 className="my-10 md:my-auto  md:text-7xl sm:text-5xl text-4xl text-center font-mono">
+            Qsahaiel
+          </h1>
         </div>
         <div className="justify-center  flex flex-row">
           <input
