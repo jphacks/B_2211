@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRef, useState } from "react";
 import { axios } from "../util/axios";
-import Image from 'next/image'
-import logo from '../public/logo.png'
+import Image from "next/image";
+import logo from "../public/logo.png";
 
 const Home: NextPage = () => {
   const inputEl = useRef<HTMLInputElement>(null); //input
@@ -75,20 +75,23 @@ const Home: NextPage = () => {
       return;
     }
     const colorPallet = [
-          "#ff5f11",
-          "#ffff1c",
-          "#42c31d",
-          "#ca1212",
-          "#42c31d",
-          "#ffff1c",
-          "#ff5f11",
-          "#1034a8",
-      ]
-     //草の情報をAPI用に整形
-     let index = 0;
-     const grassData = grass.slice(-8).map((date: [string, string]) => {
+      "#ff5f11",
+      "#ffff1c",
+      "#42c31d",
+      "#ca1212",
+      "#42c31d",
+      "#ffff1c",
+      "#ff5f11",
+      "#1034a8",
+    ];
+    //草の情報をAPI用に整形
+    let index = 0;
+    const grassData = grass.slice(-8).map((date: [string, string]) => {
       const pow = Number(date[1]);
-      return { color: colorPallet[index++], power: Math.floor((pow / maxGrass) * 100) };
+      return {
+        color: colorPallet[index++],
+        power: Math.floor((pow / maxGrass) * 100),
+      };
     });
     //送信
     axios
@@ -99,7 +102,7 @@ const Home: NextPage = () => {
       .catch((res) => {
         setSent(<>送信中にエラーが発生しました</>);
       });
-  }
+  };
 
   const sendGrass = () => {
     //草の情報を送信する
@@ -127,6 +130,52 @@ const Home: NextPage = () => {
       });
   };
 
+  const sendDummyWalkingGrass = () => {
+    const dummy = [
+      {
+        color: "#FF0000",
+        power: 36,
+      },
+      {
+        color: "#FF0000",
+        power: 18,
+      },
+      {
+        color: "#FF0000",
+        power: 35,
+      },
+      {
+        color: "#FF0000",
+        power: 34,
+      },
+      {
+        color: "#FF0000",
+        power: 42,
+      },
+      {
+        color: "#FF0000",
+        power: 5,
+      },
+      {
+        color: "#FF0000",
+        power: 35,
+      },
+      {
+        color: "#FF0000",
+        power: 44,
+      },
+    ];
+
+    //送信
+    axios
+      .post("https://kusa.home.k1h.dev/state", dummy)
+      .then((res) => {
+        setSent(<>送信完了しました</>);
+      })
+      .catch((res) => {
+        setSent(<>送信中にエラーが発生しました</>);
+      });
+  };
   return (
     <div>
       <Head>
@@ -134,7 +183,18 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="h-screen flex flex-col align-middle">
-        <h1 className="my-10 mt-10 text-7xl text-center font-mono"><Image src={logo} width={100} height={60} />Qsahaiel</h1>
+        <div className="flex flex-row justify-center">
+          <div className="w-15 h-15 my-10">
+            <Image
+              src={logo}
+              layout="fixed"
+              width={80}
+              height={80}
+              alt="qsahaiel logo"
+            />
+          </div>
+          <h1 className="my-10 text-7xl text-center font-mono">Qsahaiel</h1>
+        </div>
         <div className="justify-center  flex flex-row">
           <input
             type="text"
@@ -152,22 +212,34 @@ const Home: NextPage = () => {
           </button>
         </div>
         <p className="text-center my-3">{text}</p>
-        <div className="text-center">
+        <div>
           {grass.length != 0 ? (
-            <div>
-            <button
-              onClick={sendGrass}
-              className="bg-green-700 hover:bg-green-600 text-white rounded-lg px-4 py-2 w-48 "
-            >
-              草の情報を送信
-            </button><br></br><br></br>
-            <button
-            onClick={sendSahaQuielGrass}
-            className="bg-green-700 hover:bg-green-600 text-white rounded-lg px-4 py-2 w-48 "
-          >
-          サハクイエルモード
-          </button>
-          </div>
+            <div className="flex flex-col">
+              <div className="flex flex-row justify-center">
+                <button
+                  onClick={sendGrass}
+                  className="bg-green-700 hover:bg-green-600 text-white rounded-lg px-4 py-2  my-4 w-64 "
+                >
+                  草の情報を送信
+                </button>
+              </div>
+              <div className="flex flex-row justify-center">
+                <button
+                  onClick={sendDummyWalkingGrass}
+                  className="text-center  bg-red-800 hover:bg-red-400 text-white rounded-lg px-4 py-2 my-4 w-64 "
+                >
+                  歩数データ(ダミー)を送信
+                </button>
+              </div>
+              <div className="flex flex-row justify-center">
+                <button
+                  onClick={sendSahaQuielGrass}
+                  className="item-center bg-red-600 hover:bg-red-300 text-white rounded-lg px-4 py-2  my-4 w-64 "
+                >
+                  サハクイエルモード
+                </button>
+              </div>
+            </div>
           ) : (
             <></>
           )}
