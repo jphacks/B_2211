@@ -117,6 +117,16 @@ interface payload {
         setSent(<>送信中にエラーが発生しました</>);
       });
   };
+  const alert = async () => {
+    for(let i=0;i<5;i++){
+      const black = new Array<payload>(8).fill({color: "#000000", power: 100});
+      axios.post("https://kusa.home.k1h.dev/state", black);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const red = new Array<payload>(8).fill({color: "#ff0000", power: 100});
+      axios.post("https://kusa.home.k1h.dev/state", red);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    }
+  }
 
   const sendWalk = () => {
     const data = [
@@ -152,7 +162,7 @@ interface payload {
           "color": "#FF0000",
           "power": 44
       }
-  ]
+  ];
 
   //送信
   axios
@@ -197,8 +207,9 @@ interface payload {
           }
          </div>
         <button onClick={sendGrass}>送信</button>
-        <button onClick={()=>{setInterval(startParty, 1000)}}>パーティモード</button>
-        <button onClick={()=>{sendWalk}>歩数テスト</button>
+        <button onClick={()=>{const interval = setInterval(startParty, 1000);setTimeout(()=>{clearInterval(interval)},10000);}}>パーティモード</button>
+        <button onClick={sendWalk}>歩数テスト</button>
+        <button onClick={alert}>アラートテスト</button>
         <p className="text-center my-3">{text}</p>
         <>{sent}</>
       </div>

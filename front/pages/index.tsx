@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useRef, useState } from "react";
 import { axios } from "../util/axios";
+import Image from 'next/image'
+import logo from '../public/logo.png'
 
 const Home: NextPage = () => {
   const inputEl = useRef<HTMLInputElement>(null); //input
@@ -66,6 +68,39 @@ const Home: NextPage = () => {
       });
   };
 
+  const sendSahaQuielGrass = () => {
+    //草の情報がないケース(ボタンが表示されないはずなので多分ない)
+    if (grass.length == 0) {
+      setSent(<>送信できません</>);
+      return;
+    }
+    const colorPallet = [
+          "#ff5f11",
+          "#ffff1c",
+          "#42c31d",
+          "#ca1212",
+          "#42c31d",
+          "#ffff1c",
+          "#ff5f11",
+          "#1034a8",
+      ]
+     //草の情報をAPI用に整形
+     let index = 0;
+     const grassData = grass.slice(-8).map((date: [string, string]) => {
+      const pow = Number(date[1]);
+      return { color: colorPallet[index++], power: Math.floor((pow / maxGrass) * 100) };
+    });
+    //送信
+    axios
+      .post("https://kusa.home.k1h.dev/state", grassData)
+      .then((res) => {
+        setSent(<>送信完了しました</>);
+      })
+      .catch((res) => {
+        setSent(<>送信中にエラーが発生しました</>);
+      });
+  }
+
   const sendGrass = () => {
     //草の情報を送信する
 
@@ -99,8 +134,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="h-screen flex flex-col align-middle">
-        <h1 className=" my-10 text-7xl text-center font-mono">Qsahaiel</h1>
-
+        <h1 className="my-10 mt-10 text-7xl text-center font-mono"><Image src={logo} width={100} height={60} />Qsahaiel</h1>
         <div className="justify-center  flex flex-row">
           <input
             type="text"
@@ -120,12 +154,20 @@ const Home: NextPage = () => {
         <p className="text-center my-3">{text}</p>
         <div className="text-center">
           {grass.length != 0 ? (
+            <div>
             <button
               onClick={sendGrass}
               className="bg-green-700 hover:bg-green-600 text-white rounded-lg px-4 py-2 w-48 "
             >
               草の情報を送信
-            </button>
+            </button><br></br><br></br>
+            <button
+            onClick={sendSahaQuielGrass}
+            className="bg-green-700 hover:bg-green-600 text-white rounded-lg px-4 py-2 w-48 "
+          >
+          サハクイエルモード
+          </button>
+          </div>
           ) : (
             <></>
           )}
